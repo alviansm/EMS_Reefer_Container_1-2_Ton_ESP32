@@ -1,0 +1,4 @@
+#ifndef RECEIVE_DATA_ARDUINO
+#define RECEIVE_DATA_ARDUINO
+
+#endif

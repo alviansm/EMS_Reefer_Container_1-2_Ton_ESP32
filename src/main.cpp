@@ -1,21 +1,19 @@
 #include <Arduino.h>
-#include <SoftwareSerial.h>
 
-// ======= CONFIGURATION ========
-// ==== SERIAL COMMUNICATION RECEIVE ====
-SoftwareSerial arduino(17, 16); // RX, TX
+String data_hujan;
 
 void setup() {
   Serial.begin(9600);
-  arduino.begin(9600);
+  Serial2.begin(4800, SERIAL_8N1, 16, 17);
 }
 
 void loop() {
-  String pesan = "";
-  while (arduino.available() > 0) {
-    pesan += char(arduino.read());
+  data_hujan = "";
+  while ((Serial2.available() > 0)) {
+    data_hujan = Serial2.readString();
   }
-  pesan.trim();
-  Serial.println(pesan);
-  delay(1000);
+  data_hujan.trim();
+  if (data_hujan.length() > 5) {
+    Serial.println(data_hujan);
+  }
 }
