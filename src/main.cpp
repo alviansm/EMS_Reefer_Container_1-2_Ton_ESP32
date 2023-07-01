@@ -1,19 +1,15 @@
 #include <Arduino.h>
-
-String data_hujan;
+#include "internet-connect/internet-connect.h"
+#include "receive-data-arduino/receive-data-arduino.h"
+#include "mqtt-connect/mqtt-connect.h"
 
 void setup() {
   Serial.begin(9600);
-  Serial2.begin(4800, SERIAL_8N1, 16, 17);
+  setup_wifi_connect();
+  setup_mqtt_connect();
 }
 
 void loop() {
-  data_hujan = "";
-  while ((Serial2.available() > 0)) {
-    data_hujan = Serial2.readString();
-  }
-  data_hujan.trim();
-  if (data_hujan.length() > 5) {
-    Serial.println(data_hujan);
-  }
+  loop_mqtt_connection();
+  delay(5000);
 }
