@@ -5,5 +5,7 @@
 
 extern String fullData;
 extern String dummyFullData;
+extern String mqtt_received_message;
+void randomizeData();
 
 #endif

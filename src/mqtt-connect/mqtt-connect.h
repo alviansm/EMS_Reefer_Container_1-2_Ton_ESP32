@@ -6,8 +6,9 @@
 #include <PubSubClient.h>
 #include "variables/variables.h"
 
+void loop_mqtt_connection();
+void callback(char* topic, byte* payload, unsigned int length);
 void setup_mqtt_connect();
 void connect_mqtt();
-void loop_mqtt_connection();
 
 #endif
