@@ -6,5 +6,6 @@
 
 void setup_receive_data_arduino();
 void loop_receive_data_arduino();
+void loop_send_data_arduino();
 
 #endif

@@ -12,20 +12,23 @@ void loop_mqtt_connection() {
     }    
     // publish
     randomizeData();
-    // mqtt.publish("esp32/ecoreefermms-topic", dummyFullData.c_str());
+    mqtt.publish("esp32/ecoreefermms-topic", fullData.c_str());
     Serial.println("Data sent!");    
     mqtt.loop();
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
     String tempStatus;
+    mqtt_received_message = "";
     for (int i=0; i < length; i++){
         tempStatus = tempStatus + (char)payload[i];        
     }
-    if ((tempStatus == dummyFullData) || tempStatus.length() < 1) {
+    Serial.println(tempStatus);
+    Serial.println("tempStatus");
+    if (tempStatus == mqtt_received_message) {
             mqtt_received_message = "No Status";
-        } else {
-            mqtt_received_message = tempStatus;
+    } else {
+            mqtt_received_message = String(tempStatus);
     }
     Serial.println(tempStatus);
 }
@@ -41,7 +44,6 @@ void connect_mqtt() {
     while(!mqtt.connected()) {
         Serial.println("Connecting MQTT ...");
         if (mqtt.connect("esp32/ecoreefermms")) {
-            mqtt.subscribe("esp32/ecoreefermms-topic");
             mqtt.subscribe("esp32/ecoreefermms-topic-status");            
         }
     }
